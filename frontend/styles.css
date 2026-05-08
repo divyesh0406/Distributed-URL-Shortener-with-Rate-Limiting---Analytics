@@ -98,8 +98,32 @@ a {
   box-shadow: none;
 }
 
+.links-panel {
+  grid-column: 1 / -1;
+  box-shadow: none;
+}
+
 .panel-heading {
   margin-bottom: 22px;
+}
+
+.list-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.count-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  min-height: 28px;
+  border-radius: 999px;
+  background: #eef5f4;
+  color: var(--accent-strong);
+  font-weight: 800;
 }
 
 .eyebrow {
@@ -147,6 +171,14 @@ input {
 input:focus {
   outline: 3px solid rgba(17, 106, 104, 0.18);
   border-color: var(--accent);
+}
+
+.field-help {
+  max-width: 640px;
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.45;
 }
 
 .actions {
@@ -239,6 +271,97 @@ button:disabled {
   justify-content: space-between;
 }
 
+.url-list {
+  display: grid;
+  gap: 10px;
+  max-height: 460px;
+  overflow-y: auto;
+  padding-right: 4px;
+  scrollbar-color: var(--accent) #edf2f3;
+  scrollbar-width: thin;
+}
+
+.url-item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 12px;
+  background: #fff;
+}
+
+.url-item.selected {
+  border-color: var(--accent);
+  box-shadow: inset 4px 0 0 var(--accent);
+}
+
+.url-main {
+  min-width: 0;
+}
+
+.url-code {
+  margin: 0 0 6px;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.url-long,
+.url-short {
+  display: block;
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 13px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.url-short {
+  color: var(--accent-strong);
+}
+
+.url-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.url-stats span {
+  border-radius: 999px;
+  background: #f2f5f6;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 5px 8px;
+}
+
+.url-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.mini-button {
+  min-height: 34px;
+  border-color: var(--line);
+  background: #fff;
+  color: var(--ink);
+  padding: 0 10px;
+  font-size: 13px;
+}
+
+.danger-button {
+  border-color: #efc7bc;
+  background: #fff5f2;
+  color: #92351c;
+}
+
+.empty-state {
+  margin: 0;
+  color: var(--muted);
+}
+
 .status-line {
   display: inline-flex;
   align-items: center;
@@ -293,6 +416,14 @@ button:disabled {
 
   .workspace {
     grid-template-columns: 1fr;
+  }
+
+  .url-item {
+    grid-template-columns: 1fr;
+  }
+
+  .url-actions {
+    justify-content: flex-start;
   }
 
   .panel {

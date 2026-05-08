@@ -29,6 +29,29 @@ async def shorten(
 
     long_url = str(payload.long_url)
     idempotency_key = payload.idempotency_key or ""
+
+    if idempotency_key:
+        existing_key = await db.execute(
+            select(URL).where(URL.idempotency_key == idempotency_key)
+        )
+        key_row = existing_key.scalar_one_or_none()
+        if key_row is not None:
+            if key_row.long_url != long_url:
+                raise HTTPException(
+                    status_code=409,
+                    detail=(
+                        "Idempotency key already used for a different URL. "
+                        "Use a new key or leave it blank."
+                    ),
+                )
+
+            return ShortenResponse(
+                short_code=key_row.short_code,
+                short_url=f"{settings.base_url}/{key_row.short_code}",
+                long_url=key_row.long_url,
+                created_at=key_row.created_at,
+            )
+
     short_code = generate_short_code(long_url, idempotency_key)
 
     existing = await db.execute(select(URL).where(URL.short_code == short_code))
@@ -62,7 +85,13 @@ async def shorten(
                 raise HTTPException(status_code=409, detail="Shorten request conflict")
 
             if row.long_url != long_url:
-                raise HTTPException(status_code=409, detail="Short code collision")
+                raise HTTPException(
+                    status_code=409,
+                    detail=(
+                        "Idempotency key already used for a different URL. "
+                        "Use a new key or leave it blank."
+                    ),
+                )
 
     return ShortenResponse(
         short_code=row.short_code,

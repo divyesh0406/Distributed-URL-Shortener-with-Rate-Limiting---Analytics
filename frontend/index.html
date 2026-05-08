@@ -46,8 +46,13 @@
             name="idempotency_key"
             type="text"
             maxlength="64"
-            placeholder="campaign-2026"
+            placeholder="unique-key-for-this-url"
+            aria-describedby="idempotency-help"
           />
+          <p class="field-help" id="idempotency-help">
+            Optional. Use a unique key per destination URL; reuse the same key only
+            when retrying the exact same URL.
+          </p>
 
           <div class="actions">
             <button type="submit" class="primary-button">
@@ -98,6 +103,20 @@
               <span aria-hidden="true">⌁</span>
               Refresh
             </button>
+          </div>
+        </section>
+
+        <section class="panel links-panel">
+          <div class="panel-heading list-heading">
+            <div>
+              <p class="eyebrow">All results</p>
+              <h2>URLs</h2>
+            </div>
+            <span class="count-pill" id="list-count">0</span>
+          </div>
+
+          <div class="url-list" id="url-list">
+            <p class="empty-state">No short links yet.</p>
           </div>
         </section>
 

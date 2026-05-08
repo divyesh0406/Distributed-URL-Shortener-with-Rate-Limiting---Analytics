@@ -21,3 +21,9 @@ class AnalyticsResponse(BaseModel):
     total_clicks: int
     clicks_last_24h: int
     clicks_last_7d: int
+
+
+class URLAnalyticsResponse(AnalyticsResponse):
+    short_url: str
+    long_url: str
+    created_at: datetime

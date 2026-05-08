@@ -31,6 +31,7 @@ flowchart LR
 - Dockerized API deployable locally and on Render
 - GitHub Actions CI with Postgres, Redis, tests, coverage, and image publishing
 - Static frontend deployable on Vercel
+- Frontend all-results view for every stored short URL
 
 ## Tech Stack
 
@@ -66,6 +67,27 @@ curl -i -L --max-redirs 0 https://distributed-url-shortener-with-rate.onrender.c
 ```bash
 curl https://distributed-url-shortener-with-rate.onrender.com/analytics/SHORT_CODE
 ```
+
+List all stored URLs and analytics:
+
+```bash
+curl https://distributed-url-shortener-with-rate.onrender.com/analytics
+```
+
+Delete a short URL and its click events:
+
+```bash
+curl -X DELETE https://distributed-url-shortener-with-rate.onrender.com/urls/SHORT_CODE
+```
+
+### Idempotency Keys
+
+`idempotency_key` is optional. Use it when you want retries of the same shorten
+request to return the same short URL.
+
+- Same URL plus same key returns the same short code.
+- Different URL plus same key returns `409 Conflict`.
+- For normal manual use, leave the key blank or use a new key for each URL.
 
 ## Local Development
 
