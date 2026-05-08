@@ -133,10 +133,17 @@ https://distributed-url-shortener-with-rate.onrender.com
 
 ## Load Testing
 
-Install k6, create a short URL, then run the redirect load test.
+k6 redirect tests are included for both steady smoke testing and local
+max-throughput testing. Create a short URL first, then pass its code to k6.
 
 ```bash
 k6 run -e BASE_URL=http://localhost:8000 -e SHORT_CODE=YOUR_CODE load_test.js
+```
+
+Max-throughput local test:
+
+```bash
+k6 run -e BASE_URL=http://localhost:8000 -e SHORT_CODE=YOUR_CODE load_test_max.js
 ```
 
 Production smoke load test:
@@ -145,15 +152,16 @@ Production smoke load test:
 k6 run -e BASE_URL=https://distributed-url-shortener-with-rate.onrender.com -e SHORT_CODE=YOUR_CODE load_test.js
 ```
 
-Record your measured throughput, p95, and p99 here after running k6:
+Measured local Docker Compose results on Windows/Docker Desktop:
 
-| Metric | Result |
-|---|---|
-| Throughput | TBD |
-| p50 latency | TBD |
-| p95 latency | TBD |
-| p99 latency | TBD |
-| Error rate | TBD |
+| Test | VUs | Duration | Throughput | Avg latency | p50 | p90 | p95 | Max | Error rate | Checks |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| Controlled redirect smoke | 50 | 60s | 48.84 req/s | 19.32 ms | 9.70 ms | 23.07 ms | 33.55 ms | 432.43 ms | 0.00% | 100% |
+| Max-throughput redirect | 200 | 60s | 302.22 req/s | 658.18 ms | 631.54 ms | 800.70 ms | 889.94 ms | 2.22 s | 0.00% | 100% |
+
+The max-throughput test intentionally removes pacing and saturates the local
+stack, so higher latency is expected. The important result there is that all
+redirect checks passed and the error rate stayed at `0.00%`.
 
 ## System Design Tradeoffs
 
