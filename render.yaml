@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: url-shortener
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /health
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: REDIS_URL
+        sync: false
+      - key: KAFKA_BOOTSTRAP_SERVERS
+        value: localhost:9092
+      - key: KAFKA_TOPIC
+        value: url_clicks
+      - key: BASE_URL
+        sync: false
+      - key: RATE_LIMIT_PER_MINUTE
+        value: "100"
+      - key: ENABLE_KAFKA
+        value: "false"
