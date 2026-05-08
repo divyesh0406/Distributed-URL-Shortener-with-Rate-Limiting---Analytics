@@ -1,7 +1,9 @@
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, Response
+from fastapi.middleware.cors import CORSMiddleware
 
+from app.config import settings
 from app.database import Base, engine
 from app.routes import analytics, redirect, shorten
 
@@ -15,6 +17,19 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(title="URL Shortener", version="1.0.0", lifespan=lifespan)
 
+cors_origins = [
+    origin.strip()
+    for origin in settings.cors_origins.split(",")
+    if origin.strip()
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=cors_origins or ["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 app.include_router(shorten.router, tags=["shorten"])
 app.include_router(analytics.router, tags=["analytics"])
 
@@ -27,6 +42,11 @@ async def root():
         "docs": "/docs",
         "health": "/health",
     }
+
+
+@app.head("/", include_in_schema=False)
+async def root_head():
+    return Response(status_code=204)
 
 
 @app.get("/health", tags=["meta"])

@@ -11,6 +11,7 @@ class Settings(BaseSettings):
     base_url: str = "http://localhost:8000"
     rate_limit_per_minute: int = 100
     enable_kafka: bool = False
+    cors_origins: str = "*"
 
 
 settings = Settings()

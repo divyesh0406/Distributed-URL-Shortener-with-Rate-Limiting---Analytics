@@ -17,6 +17,7 @@ KAFKA_TOPIC=url_clicks
 BASE_URL=https://YOUR_RENDER_SERVICE_NAME.onrender.com
 RATE_LIMIT_PER_MINUTE=100
 ENABLE_KAFKA=false
+CORS_ORIGINS=*
 ```
 
 Important locations:
@@ -28,6 +29,8 @@ Important locations:
   with `rediss://`.
 - `BASE_URL`: after Render creates the service URL, paste that public URL into
   Render's Environment tab under `BASE_URL`.
+- `CORS_ORIGINS`: keep `*` for the public demo, or replace it with your Vercel
+  frontend URL after deployment.
 
 Do not paste production secrets into `.env.example`, `.env.production.example`,
 or `render.yaml`.

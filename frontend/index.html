@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="URL shortener dashboard for creating short links and viewing click analytics."
+    />
+    <title>URL Shortener</title>
+    <link rel="icon" href="./assets/mark.svg" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="./" aria-label="URL Shortener home">
+          <img src="./assets/mark.svg" alt="" width="32" height="32" />
+          <span>URL Shortener</span>
+        </a>
+        <nav class="topnav" aria-label="Primary">
+          <a href="https://distributed-url-shortener-with-rate.onrender.com/docs">API Docs</a>
+          <a href="https://github.com/divyesh0406/Distributed-URL-Shortener-with-Rate-Limiting---Analytics">GitHub</a>
+        </nav>
+      </header>
+
+      <section class="workspace" aria-label="Shortener workspace">
+        <form class="panel shorten-panel" id="shorten-form">
+          <div class="panel-heading">
+            <p class="eyebrow">Create</p>
+            <h1>Short link</h1>
+          </div>
+
+          <label for="long-url">Destination URL</label>
+          <input
+            id="long-url"
+            name="long_url"
+            type="url"
+            placeholder="https://example.com/product/launch-notes"
+            required
+          />
+
+          <label for="idempotency-key">Idempotency key</label>
+          <input
+            id="idempotency-key"
+            name="idempotency_key"
+            type="text"
+            maxlength="64"
+            placeholder="campaign-2026"
+          />
+
+          <div class="actions">
+            <button type="submit" class="primary-button">
+              <span aria-hidden="true">↳</span>
+              Shorten
+            </button>
+            <button type="button" class="icon-button" id="reset-button" title="Reset">
+              ↺
+            </button>
+          </div>
+        </form>
+
+        <section class="panel result-panel" aria-live="polite">
+          <div class="panel-heading">
+            <p class="eyebrow">Result</p>
+            <h2 id="result-title">Ready</h2>
+          </div>
+
+          <div class="result-block">
+            <label for="short-url">Short URL</label>
+            <div class="copy-row">
+              <input id="short-url" readonly value="" placeholder="Generated link" />
+              <button type="button" class="icon-button" id="copy-button" title="Copy short URL">⧉</button>
+            </div>
+          </div>
+
+          <dl class="metrics">
+            <div>
+              <dt>Total</dt>
+              <dd id="metric-total">0</dd>
+            </div>
+            <div>
+              <dt>24h</dt>
+              <dd id="metric-24h">0</dd>
+            </div>
+            <div>
+              <dt>7d</dt>
+              <dd id="metric-7d">0</dd>
+            </div>
+          </dl>
+
+          <div class="actions split-actions">
+            <button type="button" class="secondary-button" id="open-button" disabled>
+              <span aria-hidden="true">↗</span>
+              Open
+            </button>
+            <button type="button" class="secondary-button" id="analytics-button" disabled>
+              <span aria-hidden="true">⌁</span>
+              Refresh
+            </button>
+          </div>
+        </section>
+
+        <section class="panel settings-panel">
+          <div class="panel-heading">
+            <p class="eyebrow">Runtime</p>
+            <h2>API</h2>
+          </div>
+
+          <label for="api-url">Endpoint</label>
+          <input id="api-url" type="url" />
+
+          <div class="status-line">
+            <span class="status-dot" id="status-dot"></span>
+            <span id="status-text">Checking</span>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="./app.js"></script>
+  </body>
+</html>
