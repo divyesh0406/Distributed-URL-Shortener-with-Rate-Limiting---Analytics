@@ -11,7 +11,7 @@ Replace the placeholder values with your real Neon, Upstash, and Render values:
 
 ```env
 DATABASE_URL=postgresql://YOUR_NEON_USER:YOUR_NEON_PASSWORD@YOUR_NEON_HOST/YOUR_NEON_DB?sslmode=require
-REDIS_URL=redis://default:YOUR_UPSTASH_PASSWORD@YOUR_UPSTASH_HOST:6379
+REDIS_URL=rediss://default:YOUR_UPSTASH_PASSWORD@YOUR_UPSTASH_HOST:6379
 KAFKA_BOOTSTRAP_SERVERS=localhost:9092
 KAFKA_TOPIC=url_clicks
 BASE_URL=https://YOUR_RENDER_SERVICE_NAME.onrender.com
@@ -24,7 +24,8 @@ Important locations:
 - `DATABASE_URL`: paste your Neon PostgreSQL connection string into Render's
   Environment tab under the key `DATABASE_URL`.
 - `REDIS_URL`: paste your Upstash Redis connection string into Render's
-  Environment tab under the key `REDIS_URL`.
+  Environment tab under the key `REDIS_URL`. Prefer the TLS URL that starts
+  with `rediss://`.
 - `BASE_URL`: after Render creates the service URL, paste that public URL into
   Render's Environment tab under `BASE_URL`.
 
