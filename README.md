@@ -5,7 +5,7 @@ GitHub Actions, and a static Vercel frontend.
 
 **Live API:** https://distributed-url-shortener-with-rate.onrender.com  
 **API docs:** https://distributed-url-shortener-with-rate.onrender.com/docs  
-**Frontend:** Replace this with your Vercel URL after deployment.
+**Frontend:** https://distributed-url-shortener-with-rate.vercel.app/
 
 ## Architecture
 
